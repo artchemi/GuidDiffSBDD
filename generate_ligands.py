@@ -1,5 +1,6 @@
 import argparse
 from pathlib import Path
+from tqdm import tqdm
 
 import torch
 from openbabel import openbabel
@@ -47,7 +48,7 @@ if __name__ == "__main__":
         num_nodes_lig = None
 
     molecules = []
-    for i in range(args.n_samples // args.batch_size):
+    for i in tqdm(range(args.n_samples // args.batch_size)):    #! Генерация
         molecules_batch = model.generate_ligands(
             args.pdbfile, args.batch_size, args.resi_list, args.ref_ligand,
             num_nodes_lig, args.sanitize, largest_frag=not args.all_frags,

@@ -9,6 +9,7 @@ channels:
 dependencies:
   - python=3.10.4
   - pip=24.2
+  - nomkl
   - pytorch=2.0.1=*cuda11.8*
   - cudatoolkit=11.8
   - pytorch-lightning=1.8.4

@@ -750,7 +750,8 @@ class LigandPocketDDPM(pl.LightningModule):
         }
 
         return pocket
-
+    
+    #! Генерация
     def generate_ligands(self, pdb_file, n_samples, pocket_ids=None,
                          ref_ligand=None, num_nodes_lig=None, sanitize=False,
                          largest_frag=False, relax_iter=0, timesteps=None,
