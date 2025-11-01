@@ -522,8 +522,7 @@ class ConditionalDDPM(EnVariationalDiffusion):
             s_array = s_array / timesteps
             t_array = t_array / timesteps
 
-            z_lig, xh_pocket = self.sample_p_zs_given_zt(
-                s_array, t_array, z_lig, xh_pocket, lig_mask, pocket['mask'])    #! Здесь нужен guidance
+            z_lig, xh_pocket = self.sample_p_zs_given_zt(s_array, t_array, z_lig, xh_pocket, lig_mask, pocket['mask'])    #! Здесь нужен guidance
             print(z_lig.shape)
             # save frame
             if (s * return_frames) % timesteps == 0:
@@ -551,6 +550,8 @@ class ConditionalDDPM(EnVariationalDiffusion):
         out_pocket[0] = torch.cat([x_pocket, h_pocket], dim=1)
 
         # remove frame dimension if only the final molecule is returned
+        # out_lig.squeeze(0) - тензор координат и one-hot закодированого типа атома
+        print(out_lig.squeeze(0))
         return out_lig.squeeze(0), out_pocket.squeeze(0), lig_mask, \
                pocket['mask']
 
