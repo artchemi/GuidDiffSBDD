@@ -515,7 +515,7 @@ class ConditionalDDPM(EnVariationalDiffusion):
                                  device=device)
 
         # Iteratively sample p(z_s | z_t) for t = 1, ..., T, with s = t - 1.
-        for s in reversed(range(0, timesteps)):
+        for s in reversed(range(0, timesteps)):    #! Обратная диффузия
             s_array = torch.full((n_samples, 1), fill_value=s,
                                  device=z_lig.device)
             t_array = s_array + 1
@@ -523,8 +523,8 @@ class ConditionalDDPM(EnVariationalDiffusion):
             t_array = t_array / timesteps
 
             z_lig, xh_pocket = self.sample_p_zs_given_zt(
-                s_array, t_array, z_lig, xh_pocket, lig_mask, pocket['mask'])
-
+                s_array, t_array, z_lig, xh_pocket, lig_mask, pocket['mask'])    #! Здесь нужен guidance
+            print(z_lig.shape)
             # save frame
             if (s * return_frames) % timesteps == 0:
                 idx = (s * return_frames) // timesteps
